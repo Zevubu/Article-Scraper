@@ -1,0 +1,16 @@
+{
+  "name": "Article-Scraper",
+  "version": "1.0.0",
+  "description": "comment on article scraped from sites.",
+  "main": "index.js",
+  "repository": "https://github.com/Zevubu/Article-Scraper.git",
+  "author": "Zev Hoffman <zevubu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.7.7"
+  }
+}
