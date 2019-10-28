@@ -15,7 +15,7 @@ module.exports = function(app){
     });
     // Saved page route
     app.get('/saved', function(req,res){
-        db.Article.find({saved: true}, function(req, res){
+        db.Article.find({saved: true}, function(err, data){
             res.render('saved',{home:false, article: data}); 
         })
     });

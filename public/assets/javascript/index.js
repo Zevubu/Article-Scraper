@@ -1,50 +1,6 @@
 $(document).ready(function(){
     const articleContainer = $(".article-container");
 
-    function handleArticleSave(){
-        let articleToSave = $(this).parents(".card").data();
-        $(this).parents(".card").remove();
-
-        articleToSave.saved = true;
-        console.log(articleToSave);
-
-        $.ajax({
-            method:"PUT",
-            url:"/api/headlines/" + articleToSave._id,
-            data: articleToSave
-        })
-        .then(function (data){
-            console.log(data);
-            if (data){
-                location.reload();
-            }
-        });
-    };
-
-    function handleArticlescrape(){
-        $.get("/api/fetch")
-        .then(function (data){
-            // initPage()
-            console.log(`Scraped Data: ${data}`);
-            window.location.href="/";
-        });
-    };
-
-    function handleArticleClear(){
-        $.get("api/clear").then(function(data){
-            console.log(`Cleared Data: ${data}`);
-            articleContainer.empty();
-            location.reload();
-        });
-    };
-
-    
-
-
-    $(document).on("click", ".btn.save", handleArticleSave);
-    $(document).on("click", "scrape-new", handleArticlescrape);
-    $(".clear").on("click", handleArticleClear);
-
     function createCard(article){
         let card = $(`<section class="card">`);
         let cardHead = $(`<section class="card-header">`).append(
@@ -103,5 +59,45 @@ $(document).ready(function(){
         }
         articleContainer.append(articleCards);
     };
-   
-})
+
+    function handleArticleSave(){
+        let articleToSave = $(this).parents(".card").data();
+        $(this).parents(".card").remove();
+
+        articleToSave.saved = true;
+        console.log(articleToSave);
+
+        $.ajax({
+            method:"PUT",
+            url:"/api/headlines/" + articleToSave._id,
+            data: articleToSave
+        })
+        .then(function (data){
+            console.log(data);
+            if (data){
+                location.reload();
+            }
+        });
+    };
+
+    function handleArticlescrape(){
+        $.get("/api/fetch")
+        .then(function (data){
+            // initPage()
+            console.log(`Scraped Data: ${data}`);
+            window.location.href="/";
+        });
+    };
+
+    function handleArticleClear(){
+        $.get("api/clear").then(function(data){
+            console.log(`Cleared Data: ${data}`);
+            articleContainer.empty();
+            location.reload();
+        });
+    };
+
+    $(document).on("click", ".btn.save", handleArticleSave);
+    $(document).on("click", "scrape-new", handleArticlescrape);
+    $(".clear").on("click", handleArticleClear);
+});
