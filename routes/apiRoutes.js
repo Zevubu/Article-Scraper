@@ -1,28 +1,46 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
 const mongoose = require("mongoose");
 const db = require("../models");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex:true, useUnifiedTopology: true  });
 
+const connection = mongoose.connection;
+connection.once('open', () =>{
+    console.log("MongoDB database connection established successfully." + MONGODB_URI);
+});
+
 module.exports = function(app){
     // home page route
     app.get('/', function(req,res){
+        console.log(`home page check`);
         db.Article.find({saved: false}, function(err,data){
-            res.render('home',{home: true, article: data});
+            if(err){
+                console.log(`home page routing error:${err}`);
+            }else{
+                res.render('home',{home: true, article: data});
+            }
+            
         })
     });
     // Saved page route
     app.get('/saved', function(req,res){
+        console.log(`saved page check`);
         db.Article.find({saved: true}, function(err, data){
-            res.render('saved',{home:false, article: data}); 
+            if(err){
+                console.log(`Saved page routing error:${err}`);
+            }else{
+                res.render('saved',{home:false, article: data}); 
+            }
+            
         })
     });
     // change feild save to true to save to db
     app.put("/api/headlines/:id", function(req, res){
+        console.log(`change check`);
         let saved = req.body.saved == "true";
-        if(err){
+        if(saved){
             db.Article.updateOne({_id: req.body._id},{$set: {saved: true}}, function(err, result){
                 if(err){
                     console.log(err);
@@ -45,19 +63,21 @@ module.exports = function(app){
     });
 
     // Scraper
-    app.get("/api/fetch", function(req,res){
+    app.get("/api/fetch", function(req, res){
+        console.log("scraper check!")
         axios.get("http://www.ubu.com/recent.html").then(function(response){
             const $ = cheerio.load(response.data);
 
             $('a').each(function(i,element){
                 let result ={};
+                console.log($(element).text().trim())
 
                 // adds resulting text to variables.
-                result.title = $(element).text().trim;
-                result.link = `http://www.ubu.com${$(element).attr("href")}`;
+                result.headline = $(element).text();
+                result.url = `http://www.ubu.com${$(element).attr("href=")}`;
 
                 // checks that the items have text in them then creates in in the db.
-                if(result.headline !== '' && result.link !==''){
+                if(result.headline !== '' && result.url !==''){
                     db.Article.findOne({headline: result.headline}, function(err,data){
                         if(err){
                             console.log(err);

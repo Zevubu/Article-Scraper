@@ -80,7 +80,7 @@ $(document).ready(function(){
         });
     };
 
-    function handleArticlescrape(){
+    function handleArticleScrape(){
         $.get("/api/fetch")
         .then(function (data){
             // initPage()
@@ -98,6 +98,6 @@ $(document).ready(function(){
     };
 
     $(document).on("click", ".btn.save", handleArticleSave);
-    $(document).on("click", "scrape-new", handleArticlescrape);
+    $(document).on("click", ".scrape-new", handleArticleScrape);
     $(".clear").on("click", handleArticleClear);
 });

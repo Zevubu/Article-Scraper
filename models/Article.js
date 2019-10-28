@@ -11,10 +11,6 @@ const ArticleSchema = new Schema({
         type: String,
         required:true
     },
-    summary:{
-        type:String,
-        required: true
-    },
     saved: {
         type: String,
         default: false 

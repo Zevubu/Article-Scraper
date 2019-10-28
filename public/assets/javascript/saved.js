@@ -156,9 +156,9 @@ $(document).ready(function(){
 
 
     $(document).on("click",".btn.delete", handleArticleDelete);
-    $(document).on("click", "btn.notes", handleArticleNotes);
+    $(document).on("click", ".btn.notes", handleArticleNotes);
     $(document).on("click",".btn.delete", handleArticleDelete);
-    $(document).on("click", "btn.save", handleNoteSave);
-    $(document).on("click", "btn.note-delete", handleNoteDelete);
+    $(document).on("click", ".btn.save", handleNoteSave);
+    $(document).on("click", ".btn.note-delete", handleNoteDelete);
     $(".clear").on("click", handleArticleclear);
 });
