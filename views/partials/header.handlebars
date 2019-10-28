@@ -1,0 +1,39 @@
+<nav class="navbar">
+    <a class="nav-name" href="/">UbuWeb Mongo Scraper</a>
+    <button>
+
+    </button>
+
+    <section class="nav-list">
+        <ul>
+            <li>
+                <a href="/" class="nav-btn">Home</a>
+            </li>
+            <li>
+                <a href="/saved" class="nav-btn">Saved Articles</a>
+            </li>
+            {{if home}}
+            <li>
+                <a class="nav-btn scrape-new">Scrape New Info</a>
+
+            </li>
+            {{/if}}
+            <li>
+                <a class="nav-btn clear">Clear all Articles!</a>
+            </li>
+        </ul>
+    </section>
+</nav>
+
+<section class="header-area">
+    <section class="header-body">{{#if home}}
+        <h1>Mongo Scraper</h1>
+        <p>UbuWeb Edition</p>
+        {{else}}
+        <h1>Saved Articles</h1>
+        <p>Your saved articles.</p>
+        {{/if}}
+    </section>
+</section>
+
+

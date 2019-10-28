@@ -1,0 +1,31 @@
+{{>header}}
+
+<section class="article-container">
+    {{#if article}}
+        {{#each article}}
+         <section data-_id={{this._id}} class="card">
+            <h3>
+                <a class="article-title" target="_blank" rel="noopener noreferrer">{{this.title}}</a>
+                <a class="article-link"  target="_blank" rel="noopener noreferrer" href={{this.link}}>{{this.headline}}</a>
+            </h3>
+            <a class="saved-button">Save Article</a>
+         </section>
+         {{/each}}
+    {{else}}
+    <section class="alert-box">
+        <h4>The Data Base apears to be empty.</h4>
+        <section class="option-box">
+            <h3>What would you like to do?</h3>
+            <section class="options-area">
+                <h4><a>Scrape New Content</a></h4>
+                <h4><a href="/saved">View Saved Articles</a></h4>
+            </section>
+        </section>
+    </section>
+</section>
+{{/if}}
+
+{{>footer}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/javascript/index.js"></script>

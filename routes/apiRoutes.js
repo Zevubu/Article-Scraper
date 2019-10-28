@@ -3,13 +3,13 @@ const cheerio = require("cheerio");
 const mongoose = require("mongoose");
 const db = require("../models");
 
-const MONGODB_URI = process.env.MONGODB_URI || "";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 module.exports = function(app){
     // home page route
     app.get('/', function(req,res){
-        db.Article.fing({saved: false}, function(err,data){
+        db.Article.find({saved: false}, function(err,data){
             res.render('home',{home: true, article: data});
         })
     });
