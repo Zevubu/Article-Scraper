@@ -1,0 +1,42 @@
+{{> header }}
+
+<section class="container-fluid article-container">
+{{#if article}}
+  {{#each article}}
+      <section data-_id={{this._id}} class="card">
+      <section class="card-header">
+        <h3>
+            <a class="article-title" target="_blank" rel="noopener noreferrer">{{this.title}}</a>
+            <a class="article-link"  target="_blank" rel="noopener noreferrer" href={{this.link}}>{{this.headline}}</a>
+            <a class="btn btn-danger delete">Delete From Saved</a>
+            <a class="btn btn-info notes">Article Notes</a>
+        </h3>
+      </section>
+    </section>
+  {{/each}}
+</section>
+{{else}}
+  <section class='alert alert-warning text-center'>
+    <h4>Uh Oh. Looks like we don't have any new articles.</h4>
+  </section>
+  <section class="card">
+    <section class="card-header text-center">
+      <h3>What Would You Like To Do?</h3>
+    </section>
+    <section class="card-body text-center">
+      <h4>
+        <a class="scrape-new">Try Scraping New Articles</a>
+      </h4>
+      <h4>
+        <a href="/saved">Go to Saved Articles</a>
+      </h4>
+    </section>
+  </section>
+{{/if}}
+
+{{> footer }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script src="assets/javascript/saved.js"></script>

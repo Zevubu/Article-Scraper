@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const db = require("../models");
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex:true, useUnifiedTopology: true  });
 
 module.exports = function(app){
     // home page route
