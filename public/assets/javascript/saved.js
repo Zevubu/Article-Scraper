@@ -6,16 +6,14 @@ $(document).ready(function(){
         let cardHead = $(`<section class="card-header">`).append(
             $('<h3>').append(
                 $(`<a class="article-title" target="_blank" rel="noopener noreferrer">`)
-                .text(article.title),
-                $(`<a class="article-link"  target="_blank" rel="noopener noreferrer">`)
-                .attr("href", article.link)
-                .text(article.link),
+                .text(article.headline),
                 $("<a class='btn btn-danger delete'>Delete From Saved</a>"),
                 $("<a class='btn btn-info notes'>Article Notes</a>")
 
             )
         );
-        card.append(cardHead);
+        let cardBody = $(`<div class="card-body"><a class="article-link"  target="_blank" rel="noopener noreferrer" href="${this.url}">${this.url}</a></div>`)
+        card.append(cardHead, cardBody);
         card.data("_id",article._id);
         return card;
     };
@@ -94,33 +92,37 @@ $(document).ready(function(){
     };
 
     function handleArticleNotes(){
-        let currentArticle = $(this).parents(".card").data();
+        console.log('handle Note check.')
+        let currentArticle = $(this).data();
+        console.log(currentArticle)
+        $.get("/api/notes/"+ currentArticle._id).then(function(data){
+            // if(err){
+            //     console.log(err)
+            // }else{
+                console.log(`this data:${data}`);
+                console.log('chack..check')
 
-        console.log(currentArticle);
+                let modalText =  $("<div class='container-fluid text-center'>").append(
+                    $("<h4>").text("Notes For Article: " + currentArticle.url),
+                    $("<hr>"),
+                    $("<ul class='list-group note-container'>"),
+                    $("<textarea placeholder='New Note' rows='4' cols='60'>"),
+                    $("<button class='btn btn-success save'>Save Note</button>")
+                );
+                console.log(modalText);
+                bootbox.dialog({
+                    message: modalText,
+                    closeButton:true
+                });
+                let noteData = {
+                    _id: currentArticle._id,
+                    notes: data || []
+                };
+                console.log(`Notes Data: ${JSON.stringify(noteData)}`);
 
-        $.get(`/api.notes/${currentArticle.id}`).then(function(data){
-            console.log(data);
-
-            let modalText =  $("<div class='container-fluid text-center'>").append(
-                $("<h4>").text("Notes For Article: " + currentArticle._id),
-                $("<hr>"),
-                $("<ul class='list-group note-container'>"),
-                $("<textarea placeholder='New Note' rows='4' cols='60'>"),
-                $("<button class='btn btn-success save'>Save Note</button>")
-              );
-              console.log(modalText);
-              bootbox.dialog({
-                  message: modalText,
-                  closeButton:true
-              });
-              let noteData = {
-                  _id: currentArticle._id,
-                  notes: data || []
-              };
-              console.log(`Notes Data: ${JSON.stringify(noteData)}`);
-
-              $(".btn.save").data("article", noteData);
-              renderNotesList(noteData);
+                $(".btn.save").data("article", noteData);
+                renderNotesList(noteData);
+            // }
         });
     };
 
@@ -154,10 +156,11 @@ $(document).ready(function(){
         });
     };
 
+    
+
 
     $(document).on("click",".btn.delete", handleArticleDelete);
-    $(document).on("click", ".btn.notes", handleArticleNotes);
-    $(document).on("click",".btn.delete", handleArticleDelete);
+    $(document).on("click",".btn.notes", handleArticleNotes);
     $(document).on("click", ".btn.save", handleNoteSave);
     $(document).on("click", ".btn.note-delete", handleNoteDelete);
     $(".clear").on("click", handleArticleclear);

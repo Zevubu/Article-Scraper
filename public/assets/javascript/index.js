@@ -6,15 +6,13 @@ $(document).ready(function(){
         let cardHead = $(`<section class="card-header">`).append(
             $('<h3>').append(
                 $(`<a class="article-title" target="_blank" rel="noopener noreferrer">`)
-                .text(article.title),
-                $(`<a class="article-link"  target="_blank" rel="noopener noreferrer">`)
-                .attr("href", article.link)
-                .text(article.link),
+                .text(article.headline),
                 $("<a class='btn btn-success save'>Save Article</a>")
 
             )
         );
-        card.append(cardHead);
+        let cardBody = $(`<div class="card-body"><a class="article-link"  target="_blank" rel="noopener noreferrer" href="${this.url}">${this.url}</a></div>`)
+        card.append(cardHead,cardBody);
         card.data("_id",article._id);
         return card;
 

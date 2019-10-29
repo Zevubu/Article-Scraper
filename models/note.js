@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
-const NoteSchema = new Schema({
+let NoteSchema = new Schema({
     noteText: String
 });
 
-const Note = mongoose.model("Note", NoteSchema);
+let Note = mongoose.model("Note", NoteSchema);
 
 module.exports = Note;

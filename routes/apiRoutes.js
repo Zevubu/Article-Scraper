@@ -74,10 +74,10 @@ module.exports = function(app){
 
                 // adds resulting text to variables.
                 result.headline = $(element).text();
-                result.url = `http://www.ubu.com${$(element).attr("href=")}`;
+                result.url = `http://www.ubu.com${$(element).attr("href")}`;
 
                 // checks that the items have text in them then creates in in the db.
-                if(result.headline !== '' && result.url !==''){
+                if(result.headline !== '' && result.headline !== "UbuWeb" && result.url !==''){
                     db.Article.findOne({headline: result.headline}, function(err,data){
                         if(err){
                             console.log(err);
@@ -99,6 +99,7 @@ module.exports = function(app){
     // notes id retival route
 
     app.get("/api/notes/:id", function(req,res){
+        console.log("notes check");
         db.Article.findOne({_id: req.params.id}).populate("note")
         .then(function(dbArticle){
             console.log(dbArticle.note);
@@ -110,8 +111,9 @@ module.exports = function(app){
 
     // add a note to the an article
     app.post("/api/notes", function(req,res){
-        console.log(req.body);
-        bd.Note.create({ noteText: req.body.noteText})
+        console.log("notes add check");
+        console.log(`req.body: ${req.body}`);
+        db.Note.create({ noteText: req.body.noteText})
         .then(function(dbNote){
             console.log(`dbNote: ${dbNote}`);
             return db.Article.findOneAndUpdate({ _id:req.body._headlineID}, { $push: {note:dbNote._id}},
@@ -138,8 +140,8 @@ module.exports = function(app){
 
     // clears all articles from db
     app.get("/api/clear", function(err,res){
-        console.log(req.body);
-        bd.Article.deleteMany({}, function(err,result){
+        console.log(res.body);
+        db.Article.deleteMany({}, function(err,result){
             if(err){
                 console.log(err);
             }else{

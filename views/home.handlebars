@@ -5,10 +5,10 @@
   {{#each article}}
   <section data-_id={{this._id}} class="card">
         <h3>
-            <a class="article-title" target="_blank" rel="noopener noreferrer">{{this.title}}</a>
-            <a class="article-link"  target="_blank" rel="noopener noreferrer" href={{this.link}}>{{this.headline}}</a>
+            <a class="article-title" target="_blank" rel="noopener noreferrer">{{this.headline}}</a> 
+            <a class="btn btn-success save">Save Article</a>
         </h3>
-        <a class="btn btn-success save">Save Article</a>
+        <div class="card-body"><a class="article-link"  target="_blank" rel="noopener noreferrer" href={{this.url}}>{{this.url}}</a></div>
     </section>
   {{/each}}
 </section>
