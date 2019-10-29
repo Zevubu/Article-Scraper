@@ -99,10 +99,10 @@ module.exports = function(app){
     // notes id retival route
 
     app.get("/api/notes/:id", function(req,res){
-        console.log("notes check");
-        db.Article.findOne({_id: req.params.id}).populate("note")
+        console.log(`Note Routes: ${JSON.stringify(req.params.id)}`);
+        db.Note.find({_id: req.params.id}).populate("note")
         .then(function(dbArticle){
-            console.log(dbArticle.note);
+            console.log(`dbArticle.note: ${dbArticle.note}`);
             res.json(dbArticle.note);
         }).catch(function(err){
             res.json(err)

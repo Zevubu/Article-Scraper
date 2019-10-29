@@ -49,10 +49,13 @@ $(document).ready(function(){
         let notesToRender = [];
         let currentNote;
         if(!data.notes.length){
+            console.log("no notes check")
             currentNote = $("<li class='list-group-item'>No notes for this article yet.</li>");
             notesToRender.push(currentNote);
         }else{
+            console.log(`notes data: ${data.notes}`)
             for(let i = 0; i< data.notes.length; i++){
+
                 currentNote = $("<li class='list-group-item note'>")
                 .text(data.notes[i].noteText)
                 .append($("<button class='btn btn-danger note-delete'>x</button>"));
@@ -93,31 +96,35 @@ $(document).ready(function(){
 
     function handleArticleNotes(){
         console.log('handle Note check.')
-        let currentArticle = $(this).data();
-        console.log(currentArticle)
-        $.get("/api/notes/"+ currentArticle._id).then(function(data){
+        let currentArticle = $(this).parents(".card").attr("data-_id");
+        let articleInfo = $(this).parents(".card").children().attr("class", "article-title").text();
+        console.log(`article info: ${articleInfo}`);
+        console.log(`Article id: ${currentArticle}`)
+        $.get("/api/notes/"+ currentArticle).then(function(data){
             // if(err){
             //     console.log(err)
             // }else{
-                console.log(`this data:${data}`);
-                console.log('chack..check')
+                // console.log(`this data:${data}`);
+                // console.log('check')
 
                 let modalText =  $("<div class='container-fluid text-center'>").append(
-                    $("<h4>").text("Notes For Article: " + currentArticle.url),
+                    $("<h4>").text("Notes For Article: " + currentArticle),
                     $("<hr>"),
                     $("<ul class='list-group note-container'>"),
                     $("<textarea placeholder='New Note' rows='4' cols='60'>"),
                     $("<button class='btn btn-success save'>Save Note</button>")
                 );
+                
                 console.log(modalText);
                 bootbox.dialog({
                     message: modalText,
                     closeButton:true
                 });
                 let noteData = {
-                    _id: currentArticle._id,
+                    _id: currentArticle,
                     notes: data || []
                 };
+                
                 console.log(`Notes Data: ${JSON.stringify(noteData)}`);
 
                 $(".btn.save").data("article", noteData);
