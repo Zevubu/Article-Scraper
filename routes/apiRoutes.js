@@ -117,13 +117,16 @@ module.exports = function(app){
     // add a note to the an article
     // NEEDS FURTHER WORK
     app.post("/api/notes", function(req,res){
-        // let noteTest = JSON(req)
         console.log("notes add check");
-        // console.log(`req.body: ${noteTest}`);
-        db.Article.findOneAndUpdate({ _id: req.body._headlineID}, { $addToSet: {note: req.body.noteText}}, {new:true})
-        .then(function(dbArticle){
+        console.log(`req.body: ${req.body}`);
+        db.Note.create({ noteText: req.body.noteText })
+        .then(function(dbNote){
+            console.log(`dbNote: ${dbNote}`);
+            return db.Article.findOneAndUpdate({ _id:req.body._headlineID}, { $push: {note:dbNote._id}},
+                {new:true})
+        }).then(function(dbArticle){
             console.log(`dbArticle: ${dbArticle}`);
-            return res.json(dbArticle);
+            res.json(dbArticle);
         }).catch(function(err){
             res.json(err);
         });
