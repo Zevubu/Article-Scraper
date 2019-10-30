@@ -97,30 +97,33 @@ module.exports = function(app){
         });
     });
     // notes id retival route
+    // NEEDS FURTHER WORK
 
     app.get("/api/notes/:id", function(req,res){
         console.log(`Note Routes: ${JSON.stringify(req.params.id)}`);
-        db.Note.find({_id: req.params.id}).populate("note")
-        .then(function(dbArticle){
-            console.log(`dbArticle.note: ${dbArticle.note}`);
-            res.json(dbArticle.note);
-        }).catch(function(err){
-            res.json(err)
+        db.Article.findOne({_id: req.params.id}, function(err,result){
+            if(err){
+                console.log(err);
+            }else {
+                console.log(result)
+                return res.send(result)
+            };
         });
+        // }).catch(function(err){
+        //     res.json(err)
+        // });
     });
 
     // add a note to the an article
+    // NEEDS FURTHER WORK
     app.post("/api/notes", function(req,res){
+        // let noteTest = JSON(req)
         console.log("notes add check");
-        console.log(`req.body: ${req.body}`);
-        db.Note.create({ noteText: req.body.noteText})
-        .then(function(dbNote){
-            console.log(`dbNote: ${dbNote}`);
-            return db.Article.findOneAndUpdate({ _id:req.body._headlineID}, { $push: {note:dbNote._id}},
-                {new:true})
-        }).then(function(dbArticle){
+        // console.log(`req.body: ${noteTest}`);
+        db.Article.findOneAndUpdate({ _id: req.body._headlineID}, { $addToSet: {note: req.body.noteText}}, {new:true})
+        .then(function(dbArticle){
             console.log(`dbArticle: ${dbArticle}`);
-            res.json(dbArticle);
+            return res.json(dbArticle);
         }).catch(function(err){
             res.json(err);
         });

@@ -7,8 +7,8 @@ $(document).ready(function(){
             $('<h3>').append(
                 $(`<a class="article-title" target="_blank" rel="noopener noreferrer">`)
                 .text(article.headline),
-                $("<a class='btn btn-danger delete'>Delete From Saved</a>"),
-                $("<a class='btn btn-info notes'>Article Notes</a>")
+                $("<a class='btn btn-secondary delete'>Delete From Saved</a>"),
+                $("<a class='btn btn-dark notes'>Article Notes</a>")
 
             )
         );
@@ -58,7 +58,7 @@ $(document).ready(function(){
 
                 currentNote = $("<li class='list-group-item note'>")
                 .text(data.notes[i].noteText)
-                .append($("<button class='btn btn-danger note-delete'>x</button>"));
+                .append($("<button class='btn btn-secondary note-delete'>x</button>"));
               currentNote.children("button").data("_id", data.notes[i]._id);
               notesToRender.push(currentNote);
             }
@@ -107,8 +107,9 @@ $(document).ready(function(){
                 // console.log(`this data:${data}`);
                 // console.log('check')
 
+
                 let modalText =  $("<div class='container-fluid text-center'>").append(
-                    $("<h4>").text("Notes For Article: " + currentArticle),
+                    $("<h4>").text("Notes For Article: " + data.headline),
                     $("<hr>"),
                     $("<ul class='list-group note-container'>"),
                     $("<textarea placeholder='New Note' rows='4' cols='60'>"),
@@ -139,6 +140,7 @@ $(document).ready(function(){
 
         if (newNote) {
           noteData = { _headlineId: $(this).data("article")._id, noteText: newNote };
+          console.log(`NewNote data:${JSON.stringify(noteData)}`);
           $.post("/api/notes", noteData).then(function() {
             bootbox.hideAll();
           });
@@ -162,9 +164,6 @@ $(document).ready(function(){
           location.reload();
         });
     };
-
-    
-
 
     $(document).on("click",".btn.delete", handleArticleDelete);
     $(document).on("click",".btn.notes", handleArticleNotes);

@@ -6,11 +6,11 @@ html {
 
 body {
     margin-bottom: 80px;
-    background-image: url("../images/paper.png");
+    background-image: url("../img/rocks.jpg");
 }
 
 .card a:not([href]):not([tabindex]).scrape-new {
-    color: #2196F3;
+    color: rgb(0, 0, 0);
 }
 
 .footer {
@@ -19,7 +19,7 @@ body {
     width: 100%;
     height: 80px;
     color: white;
-    background-color: #2196f3;
+    background-color: #0c0c0cbd;
 }
 
 .navbar {
@@ -29,7 +29,7 @@ body {
 .jumbotron {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 400px;
     padding: 0;
     font-family: "Cormorant SC";
     box-shadow: 10px 5px 20px 2px lightslategrey;
@@ -48,8 +48,8 @@ body {
 
 .jumbotron .background-image {
     height: 100%;
-    background-image: url("../images/newspaper.jpg");
-    background-size: cover;
+    background-image: url("../img/bekket-header.jpg");
+    background-size: contain;
 }
 
 .jumbotron .caption {
@@ -84,7 +84,7 @@ body {
 }
 
 .card .card-header {
-    background-color: #2196f3;
+    background-color: #0c0c0cb0;
     position: relative;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -124,7 +124,7 @@ body {
     padding-left: 10px;
     margin: 0;
     font-weight: 800;
-    background: #0c7cd5;
+    background: #0c0c0cb0;
 }
 
 .navbar-nav > li > a.scrape-new,
@@ -138,11 +138,13 @@ body {
 
 .navbar-nav > li > a.scrape-new:hover,
 .navbar-nav > li > a.clear:hover {
-    background: #4caf50;
+    color: rgb(0, 0, 0);
+    background: aliceblue;
 }
 
 .navbar-nav > li > a.scrape-new:active {
-    background: #e51c23;
+    color: aliceblue;
+    background: #000000;
 }
 
 .scrape-new {
