@@ -101,17 +101,14 @@ module.exports = function(app){
 
     app.get("/api/notes/:id", function(req,res){
         console.log(`Note Routes: ${JSON.stringify(req.params.id)}`);
-        db.Article.findOne({_id: req.params.id}, function(err,result){
-            if(err){
-                console.log(err);
-            }else {
-                console.log(result)
-                return res.send(result)
-            };
-        });
-        // }).catch(function(err){
-        //     res.json(err)
-        // });
+        db.Article.findOne({_id: req.params.id}).populate("note")
+         .then(function(dbArticle){
+                console.log(`dbArticle: ${dbArticle.note}`)
+                res.json(dbArticle.note)
+            }).catch(function(err){
+                console.log(err)
+                res.send(err)
+            }) 
     });
 
     // add a note to the an article
