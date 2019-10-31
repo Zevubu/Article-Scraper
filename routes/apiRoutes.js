@@ -116,7 +116,7 @@ module.exports = function(app){
     app.post("/api/notes", function(req,res){
         console.log("notes add check");
         console.log(`req.body: ${req.body}`);
-        db.Note.create({ noteText: req.body.noteText })
+        db.note.create({ noteText: req.body.noteText })
         .then(function(dbNote){
             console.log(`dbNote: ${dbNote}`);
             return db.Article.findOneAndUpdate({ _id:req.body._headlineID}, { $push: {note:dbNote._id}},
@@ -132,7 +132,7 @@ module.exports = function(app){
     // deleting note from article.
     app.delete("/api/notes/:id", function(req,res){
         console.log(`reqBody: ${JSON.stringify(req.params.id)}`);
-        db.Note.deleteOne({_id: req.params.id}, function(err, result){
+        db.note.deleteOne({_id: req.params.id}, function(err, result){
             if(err){
                 console.log(err);
             }else{
