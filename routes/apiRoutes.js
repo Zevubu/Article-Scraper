@@ -4,8 +4,8 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex:true});
-
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true});
+// useUnifiedTopology: true  
 const connection = mongoose.connection;
 connection.once('open', () =>{
     console.log("MongoDB database connection established successfully." + MONGODB_URI);
