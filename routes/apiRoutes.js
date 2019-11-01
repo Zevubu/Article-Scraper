@@ -4,7 +4,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex:true, useUnifiedTopology: true  });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex:true});
 
 const connection = mongoose.connection;
 connection.once('open', () =>{
