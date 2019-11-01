@@ -2,7 +2,7 @@
   "name": "Article-Scraper",
   "version": "1.0.0",
   "description": "comment on article scraped from sites.",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/Zevubu/Article-Scraper.git",
   "author": "Zev Hoffman <zevubu@gmail.com>",
   "license": "MIT",
