@@ -1,1 +1,1 @@
-web: node sever.js
+web: yarn start
