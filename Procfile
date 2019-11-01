@@ -1,1 +1,3 @@
-web: npm start
+web: yarn start
+
+worker: node server.js
